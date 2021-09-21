@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Wish;
+use App\Repository\WishRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,10 +13,14 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home(): Response
+    public function home(WishRepository $repo): Response
     {
-        return $this->render('main/index.html.twig', [
-            'controller_name' => 'MainController',
+
+        $wishes=$repo->findBy(array('isPublished' =>1), array('dateCreated' => 'DESC'));#}
+
+        return $this->render('main/home.html.twig', [
+            'controller_name' => 'home',
+            'wishes'=>$wishes,
         ]);
     }
     /**
@@ -22,7 +28,29 @@ class MainController extends AbstractController
      */
     public function contact(): Response
     {
-        $tab["message"]="Contact";
-        return $this->json($tab);
+        return $this->render('main/contact.html.twig', [
+            'controller_name' => 'contact',
+        ]);
     }
+    /**
+     * @Route("/about", name="about")
+     */
+    public function about(): Response
+    {
+        return $this->render('main/about.html.twig', [
+            'controller_name' => 'about',
+        ]);
+    }
+    /**
+     * @Route("/wishes/{id}", name="wishes")
+     */
+    public function wishes(Wish $wish): Response
+    {
+
+        return $this->render('main/wishes.html.twig', [
+            'wish' => $wish,
+        ]);
+
+    }
+
 }

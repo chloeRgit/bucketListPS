@@ -9,10 +9,11 @@
 
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
             <link rel="icon" href={{ asset('img/noun_Bucket%20List_29962.svg') }}>
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
             <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@200&display=swap" rel="stylesheet">
-            <link rel="stylesheet" href={{  asset('css/style.css') }}>
+
         {% endblock %}
 
         {% block javascripts %}
@@ -20,28 +21,30 @@
         {% endblock %}
     </head>
     <body>
+    {% set my_route=app.request.get('_route') %}
     {% block navbar %}
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container px-5">
-                <img src={{ asset('img/logo.png') }}>
-                <a class="navbar-brand" href={{ asset('img/logo.png') }}>Bucket List</a>
+                <a class="navbar-brand" href="{{ path('home')}}">
+                    <img class="logo" src="{{ asset('img/logo.svg') }}">
+                    Bucket List</a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ path('home') }}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="#!">About</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="{{ path('contact') }}">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="#!">Services</a></li>
+                        <li class="nav-item"><a class="nav-link{%  if my_route=='home' %} active {% endif %}" aria-current="page" href="{{ path('home') }}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link{%  if my_route=='about' %} active {% endif %}" href="{{ path('about') }}">About</a></li>
+                        <li class="nav-item"><a class="nav-link{%  if my_route=='contact' %} active {% endif %}" href="{{ path('contact') }}">Contact</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
     {% endblock %}
 
+<section class="container">
         {% block body %}
         {% endblock %}
-
+</section>
         {% block footer %}
         <footer class="py-5 bg-dark">>
 

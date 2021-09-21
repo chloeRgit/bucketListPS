@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{# % block title %}Hello MainController!{% endblock %#}
+
+{% block body %}
+
+    <div class="row">
+        <h1>Hello {{ controller_name }}! </h1>
+        {% for w in wishes %}
+
+            <div class="col-sm-3">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ w.title }}</h5>
+                        <p class="card-text">{{ w.description }}</p>
+                        <a href="{{ path('wishes',{id:w.id})}}" class="btn btn-secondary">Détail</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
