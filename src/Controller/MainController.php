@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Wish;
+use App\Form\WishType;
 use App\Repository\WishRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -49,6 +51,30 @@ class MainController extends AbstractController
 
         return $this->render('main/wishes.html.twig', [
             'wish' => $wish,
+        ]);
+
+    }
+    /**
+     * @Route("/wish_ajout/", name="wish_ajout")
+     */
+    public function wishAjout(Request $request): Response
+    {
+        $wish=new Wish();
+        //$now = date_create()->format('Y-m-d H:i:s');
+        $wish->setIsPublished(true);
+        $wish->setDateCreated(new \DateTime());
+        $formWish=$this->createForm(WishType::class, $wish);
+        $formWish->handleRequest($request);
+        if($formWish->isSubmitted()){
+            $em=$this->getDoctrine()->getManager();
+            $em->persist($wish);
+            $em->flush();
+            return $this->render('main/wishes.html.twig', [
+                'wish' => $wish,
+                'success_ajout'=>'success']);
+        }
+        return $this->render('main/wish_ajout.html.twig', [
+            'formWish' => $formWish->createView(),
         ]);
 
     }
