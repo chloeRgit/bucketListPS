@@ -3,9 +3,13 @@
 {# % block title %}Hello MainController!{% endblock %#}
 
 {% block body %}
-
+    {%  if success_delete=='delete' %}
+        <div class="alert alert-danger">
+            <p>Idea canceled!</p>
+        </div>
+    {% endif %}
     <div class="row">
-        <h1>Hello {{ controller_name }}! </h1>
+
         {% for w in wishes %}
 
             <div class="col-sm-3">
