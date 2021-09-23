@@ -12,8 +12,8 @@
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
                         <h4 class="card-title">{{ w.title }}</h4>
-
-                        <a href="{{ path('wishes',{id:w.id})}}" class="btn btn-secondary">Détail</a>
+                        {% if w.categorie %} <p class="card-text"> Category: {{ w.categorie.nom}} </p>{% endif %}
+                        <a href="{{ path('wishes',{id:w.id})}}" class="btn btn-secondary">Detail</a>
                     </div>
                 </div>
             </div>

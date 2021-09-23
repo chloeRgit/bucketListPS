@@ -7,5 +7,15 @@ h1
 {
     font-family: 'Barlow Semi Condensed', sans-serif;
 }
+label{
+    display:block;
+}
+/*input,textarea{
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    width: 150px;
+    max-width: 50%;
+}*/
+
 
 

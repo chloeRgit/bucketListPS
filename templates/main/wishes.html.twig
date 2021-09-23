@@ -31,6 +31,13 @@
                                     <p>By</p>
                                     <strong>{{wish.author}}</strong></div>
                             </li>
+                            {% if wish.categorie %}
+                            <li>
+                                <div class="info">
+                                    <p>Category</p>
+                                    <strong>{{wish.categorie.nom}}</strong></div>
+                            </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
@@ -39,6 +46,11 @@
                         <h3 class="md-heading">{{ wish.title}}</a></h3>
                         <p> {{ wish.description}} </p>
                     </div>
+                </div>
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-8">
+                    <a href="{{ path('wish_update',{id: wish.id}) }}" class="btn btn-secondary">
+                        <i class="fa fa-edit"></i>
+                    </a>
                 </div>
             </div>
         </article>

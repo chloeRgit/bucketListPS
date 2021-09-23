@@ -23,6 +23,7 @@ class MainController extends AbstractController
         return $this->render('main/home.html.twig', [
             'controller_name' => 'home',
             'wishes'=>$wishes,
+
         ]);
     }
     /**
@@ -51,6 +52,7 @@ class MainController extends AbstractController
 
         return $this->render('main/wishes.html.twig', [
             'wish' => $wish,
+            'success_ajout'=>'null',
         ]);
 
     }
@@ -75,8 +77,33 @@ class MainController extends AbstractController
         }
         return $this->render('main/wish_ajout.html.twig', [
             'formWish' => $formWish->createView(),
+            'success_ajout'=>'null',
         ]);
 
     }
+
+    /**
+     * @Route("/wish_update/{id}", name="wish_update")
+     */
+    public function wishUpdate(Wish $wish, Request $request): Response
+    {
+
+        $formWish=$this->createForm(WishType::class, $wish);
+        $formWish->handleRequest($request);
+        if($formWish->isSubmitted()){
+            $em=$this->getDoctrine()->getManager();
+            $em->flush();
+            return $this->render('main/wishes.html.twig', [
+                'wish' => $wish,
+                'success_ajout'=>'null']);
+        }
+        return $this->render('main/wish_update.html.twig', [
+            'formWish' => $formWish->createView(),
+            'success_ajout'=>'null',
+        ]);
+
+    }
+
+
 
 }
